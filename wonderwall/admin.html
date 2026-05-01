@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin | WonderWall</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0A3476;--navy-dark:#071f4a;--gold:#FCB040;--gold-pale:#FEF0D0;--pale:#f7f8fc;--line:#dfe6f5;--text:#172033;--muted:#5b6680;--white:#fff;--error:#b3261e;--success:#1f7a3a;--hidden:#7d4a00}*{box-sizing:border-box}body{margin:0;font-family:'DM Sans',sans-serif;background:var(--pale);color:var(--text);line-height:1.5}.hero{background:linear-gradient(135deg,var(--navy-dark),var(--navy));color:#fff;padding:30px 20px}.hero-inner{max-width:1120px;margin:0 auto}.eyebrow{letter-spacing:.12em;text-transform:uppercase;color:var(--gold);font-size:12px;font-weight:700;margin:0 0 8px}h1{font-family:'DM Serif Display',serif;font-weight:400;font-size:42px;line-height:1;margin:0}h1 em{color:var(--gold);font-style:italic}.hero p{color:#d6def2;margin:8px 0 0}.wrap{max-width:1120px;margin:0 auto;padding:22px 20px 40px}.panel,.card{background:#fff;border:1.5px solid var(--line);border-radius:16px;box-shadow:0 4px 14px rgba(10,52,118,.05)}.panel{padding:18px;margin-bottom:18px}.login{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.login input,.tools input,.tools select,.edit textarea,.edit input{border:1.5px solid var(--line);border-radius:10px;padding:10px 12px;font:inherit}.login input{min-width:240px}.btn{border:0;border-radius:999px;background:var(--navy);color:#fff;font-weight:800;padding:10px 14px;cursor:pointer;font:inherit}.btn.gold{background:var(--gold);color:#151515}.btn.ghost{background:#eef2fa;color:var(--navy)}.btn.danger{background:var(--error)}.btn.small{font-size:13px;padding:8px 11px}.status{font-size:14px;font-weight:700;color:var(--muted)}.status.error{color:var(--error)}.status.success{color:var(--success)}.tools{display:none;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:18px}.tools.show{display:flex}.tools input{flex:1;min-width:220px}.list{display:grid;gap:14px}.card{padding:16px}.card-head{display:flex;gap:10px;justify-content:space-between;align-items:flex-start}.pill{display:inline-flex;border-radius:999px;padding:4px 9px;font-weight:800;font-size:12px;text-transform:uppercase}.pill.pending{background:#eef2fa;color:var(--navy)}.pill.approved{background:#e8f6ec;color:var(--success)}.pill.hidden{background:var(--gold-pale);color:var(--hidden)}.question{font-size:18px;font-weight:800;color:var(--navy-dark);margin:10px 0 6px}.context{color:var(--muted);margin:0 0 8px}.meta{color:var(--muted);font-size:12px}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.edit{display:none;margin-top:14px;border-top:1px solid var(--line);padding-top:14px}.edit.show{display:grid;gap:10px}.edit textarea{width:100%;min-height:80px;resize:vertical}.edit label{font-size:13px;font-weight:800;color:var(--navy)}.empty{padding:24px;text-align:center;color:var(--muted);background:#fff;border:1.5px dashed var(--line);border-radius:16px}.toplinks{margin-top:12px;display:flex;gap:10px;flex-wrap:wrap}.toplinks a{color:#fff;background:rgba(255,255,255,.14);padding:8px 12px;border-radius:999px;text-decoration:none;font-weight:800;font-size:13px}@media(max-width:640px){.login input,.btn,.tools input,.tools select{width:100%;min-width:0}.card-head{display:block}.actions .btn{width:auto}}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="hero-inner">
+    <p class="eyebrow">Moderator tools</p>
+    <h1>Wonder<em>Wall</em> Admin</h1>
+    <p>Approve, edit, mark answered, hide, or delete anonymous questions.</p>
+    <nav class="toplinks"><a href="index.html">View Wall</a><a href="Submit.html">Submit Page</a></nav>
+  </div>
+</header>
+<main class="wrap">
+  <section class="panel">
+    <div class="login">
+      <input id="passcode" type="password" placeholder="Admin passcode" autocomplete="current-password">
+      <button class="btn gold" id="loginBtn">Load Questions</button>
+      <button class="btn ghost" id="refreshBtn">Refresh</button>
+      <span class="status" id="statusText">Enter passcode to begin.</span>
+    </div>
+  </section>
+
+  <section class="tools" id="tools">
+    <input id="searchInput" type="search" placeholder="Search questions, context, tags, or notes">
+    <select id="filterSelect">
+      <option value="all">All statuses</option>
+      <option value="pending">Pending only</option>
+      <option value="approved">Approved only</option>
+      <option value="hidden">Hidden only</option>
+    </select>
+  </section>
+
+  <section id="list" class="list"></section>
+</main>
+<script>
+const SCRIPT_URL='https://script.google.com/macros/s/AKfycbyG_ItNU_yxsIhqItBlBzFS-2Rj0ZqZ_I1W6PlQs-tcHtOS--I6rJacZPDPDRtMzYIg/exec';
+let questions=[];
+const passcode=document.getElementById('passcode');
+const statusText=document.getElementById('statusText');
+const list=document.getElementById('list');
+const tools=document.getElementById('tools');
+const searchInput=document.getElementById('searchInput');
+const filterSelect=document.getElementById('filterSelect');
+function escapeHtml(str){return String(str||'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));}
+function setStatus(msg,type){statusText.textContent=msg||'';statusText.className='status '+(type||'');}
+function fmt(value){const d=new Date(value);return isNaN(d)?'':d.toLocaleString();}
+async function api(action,params={}){
+  if(SCRIPT_URL.indexOf('PASTE_YOUR')===0) throw new Error('Backend not configured. Paste the Apps Script URL into SCRIPT_URL.');
+  const body=new URLSearchParams({action,passcode:passcode.value,...params});
+  const res=await fetch(SCRIPT_URL,{method:'POST',body});
+  const data=await res.json();
+  if(!data.ok) throw new Error(data.error||'Request failed.');
+  return data;
+}
+async function load(){
+  try{setStatus('Loading...','');const data=await api('adminList');questions=data.questions||[];tools.classList.add('show');setStatus(questions.length+' questions loaded.','success');render();}
+  catch(err){setStatus(err.message,'error');}
+}
+function filtered(){
+  const term=searchInput.value.trim().toLowerCase();const filter=filterSelect.value;
+  return questions.filter(q=>{
+    if(filter!=='all'&&q.status!==filter) return false;
+    const hay=[q.question,q.context,q.tag,q.adminNote,q.status].join(' ').toLowerCase();
+    return !term||hay.includes(term);
+  });
+}
+function render(){
+  const rows=filtered();
+  if(!rows.length){list.innerHTML='<div class="empty">No questions match this view.</div>';return;}
+  list.innerHTML=rows.map(q=>card(q)).join('');
+}
+function card(q){const answered=String(q.answered)==='true';return `<article class="card" id="card-${escapeHtml(q.id)}">
+  <div class="card-head"><div><span class="pill ${escapeHtml(q.status)}">${escapeHtml(q.status)}</span> ${answered?'<span class="pill approved">Answered</span>':''}</div><div class="meta">${escapeHtml(fmt(q.timestamp))} · ▲ ${Number(q.upvotes||0)}</div></div>
+  <div class="question">${escapeHtml(q.question)}</div>
+  ${q.context?`<p class="context">${escapeHtml(q.context)}</p>`:''}
+  <div class="meta">Tag: ${escapeHtml(q.tag||'General')}${q.adminNote?' · Note: '+escapeHtml(q.adminNote):''}</div>
+  <div class="actions">
+    <button class="btn small gold" onclick="setStatusFor('${escapeHtml(q.id)}','approve')">Approve</button>
+    <button class="btn small ghost" onclick="toggleAnswered('${escapeHtml(q.id)}',${answered?'false':'true'})">${answered?'Mark Unanswered':'Mark Answered'}</button>
+    <button class="btn small ghost" onclick="setStatusFor('${escapeHtml(q.id)}','hide')">Hide</button>
+    <button class="btn small ghost" onclick="setStatusFor('${escapeHtml(q.id)}','restore')">Restore to Pending</button>
+    <button class="btn small ghost" onclick="toggleEdit('${escapeHtml(q.id)}')">Edit</button>
+    <button class="btn small danger" onclick="deleteQuestion('${escapeHtml(q.id)}')">Delete</button>
+  </div>
+  <div class="edit" id="edit-${escapeHtml(q.id)}">
+    <label>Question</label><textarea id="question-${escapeHtml(q.id)}" maxlength="280">${escapeHtml(q.question)}</textarea>
+    <label>Context</label><textarea id="context-${escapeHtml(q.id)}" maxlength="300">${escapeHtml(q.context)}</textarea>
+    <label>Tag</label><input id="tag-${escapeHtml(q.id)}" maxlength="40" value="${escapeHtml(q.tag||'General')}">
+    <label>Admin note</label><input id="note-${escapeHtml(q.id)}" value="${escapeHtml(q.adminNote||'')}">
+    <div><button class="btn small gold" onclick="saveEdit('${escapeHtml(q.id)}')">Save Changes</button></div>
+  </div>
+</article>`}
+function toggleEdit(id){document.getElementById('edit-'+id).classList.toggle('show');}
+async function setStatusFor(id,action){try{await api(action,{id});await load();}catch(err){setStatus(err.message,'error');}}
+async function toggleAnswered(id,value){try{await api('toggleAnswered',{id,answered:value});await load();}catch(err){setStatus(err.message,'error');}}
+async function saveEdit(id){try{await api('update',{id,question:document.getElementById('question-'+id).value,context:document.getElementById('context-'+id).value,tag:document.getElementById('tag-'+id).value,adminNote:document.getElementById('note-'+id).value});await load();}catch(err){setStatus(err.message,'error');}}
+async function deleteQuestion(id){if(!confirm('Delete this question permanently from the sheet?'))return;try{await api('delete',{id});await load();}catch(err){setStatus(err.message,'error');}}
+document.getElementById('loginBtn').addEventListener('click',load);document.getElementById('refreshBtn').addEventListener('click',load);passcode.addEventListener('keydown',e=>{if(e.key==='Enter')load();});searchInput.addEventListener('input',render);filterSelect.addEventListener('change',render);
+</script>
+</body>
+</html>
