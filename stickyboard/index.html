@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StickyBoard | Collaborative Sticky-Note Canvas</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0A3476;--navy-dark:#071f4a;--gold:#FCB040;--pale:#f7f8fc;--line:#dfe6f5;--text:#172033;--muted:#5b6680;--white:#fff;--shadow:0 14px 30px rgba(7,31,74,.15)}*{box-sizing:border-box}body{margin:0;font-family:'DM Sans',sans-serif;background:var(--pale);color:var(--text);line-height:1.5}.hero{background:linear-gradient(135deg,var(--navy-dark),var(--navy));color:var(--white);padding:34px 20px;position:relative;overflow:hidden}.hero:after{content:"";position:absolute;right:-90px;top:-90px;width:280px;height:280px;background:radial-gradient(circle,var(--gold),transparent 70%);opacity:.23}.hero-inner{max-width:1200px;margin:0 auto;position:relative;z-index:1}.eyebrow{letter-spacing:.12em;text-transform:uppercase;color:var(--gold);font-size:12px;font-weight:800;margin:0 0 8px}h1{font-family:'DM Serif Display',serif;font-size:clamp(36px,6vw,64px);line-height:1;margin:0 0 10px;font-weight:400}h1 em{color:var(--gold);font-style:italic}.hero p{max-width:780px;color:#d6def2;margin:0;font-size:17px}.topbar{max-width:1200px;margin:-22px auto 18px;padding:0 20px;position:relative;z-index:2}.navcard{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:14px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;box-shadow:0 10px 28px rgba(10,52,118,.12)}.links{display:flex;flex-wrap:wrap;gap:10px}.btn{border:0;border-radius:999px;background:var(--navy);color:white;text-decoration:none;font-weight:800;padding:10px 16px;font-size:14px;cursor:pointer;display:inline-flex;align-items:center;gap:6px}.btn.secondary{background:var(--gold);color:#151515}.btn.ghost{background:#eef2fa;color:var(--navy)}.status{font-size:13px;color:var(--muted);font-weight:700}.wrap{max-width:1200px;margin:0 auto;padding:0 20px 38px}.toolbar{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:14px}.toolbar input,.toolbar select{border:1.5px solid var(--line);border-radius:10px;padding:11px 12px;font:inherit;background:#fff;min-width:210px}.toolbar input{flex:1}.canvas-wrap{background:#fff;border:1.5px solid var(--line);border-radius:18px;padding:14px;box-shadow:0 8px 22px rgba(10,52,118,.06)}.canvas{position:relative;min-height:620px;border-radius:14px;overflow:hidden;background:linear-gradient(90deg,rgba(10,52,118,.06) 1px,transparent 1px),linear-gradient(rgba(10,52,118,.06) 1px,transparent 1px),#fbfcff;background-size:36px 36px}.note{position:absolute;width:190px;min-height:150px;padding:16px 15px 14px;border-radius:6px 6px 18px 6px;box-shadow:var(--shadow);cursor:grab;user-select:none;transform:rotate(var(--tilt));transition:box-shadow .15s,transform .15s}.note:active{cursor:grabbing;box-shadow:0 20px 36px rgba(7,31,74,.24);z-index:10;transform:rotate(0deg) scale(1.02)}.note:after{content:"";position:absolute;right:0;bottom:0;border-width:0 0 28px 28px;border-style:solid;border-color:transparent transparent rgba(0,0,0,.11) transparent}.note.yellow{background:#fff3a6}.note.blue{background:#bfe7ff}.note.green{background:#c9f4c5}.note.pink{background:#ffd1dc}.note.purple{background:#ddd1ff}.note.orange{background:#ffd39c}.note-text{font-weight:800;font-size:18px;color:#1f2937;margin:0 0 12px;line-height:1.25;white-space:pre-wrap;overflow-wrap:anywhere}.note-meta{font-size:12px;color:rgba(31,41,55,.7);font-weight:800;border-top:1px solid rgba(0,0,0,.12);padding-top:8px}.category{display:inline-block;margin-bottom:7px;padding:3px 8px;border-radius:999px;background:rgba(255,255,255,.55);font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.04em}.empty{position:absolute;inset:24px;display:flex;align-items:center;justify-content:center;text-align:center;color:var(--muted);border:1.5px dashed var(--line);border-radius:14px;background:rgba(255,255,255,.72);padding:24px}.disclaimer{margin-top:20px;background:#fff;border:1.5px solid var(--line);border-radius:16px;padding:20px}.disclaimer h2{margin:0 0 8px;color:var(--navy);font-size:20px}.disclaimer ul{margin:8px 0 0;padding-left:20px}.footer{max-width:1200px;margin:0 auto;padding:8px 20px 30px;color:var(--muted);font-size:13px}a{color:var(--navy);font-weight:800}@media(max-width:640px){.links,.btn{width:100%;justify-content:center}.toolbar input,.toolbar select{width:100%;min-width:0}.canvas{min-height:760px}.note{width:165px;min-height:135px}.note-text{font-size:16px}}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="hero-inner">
+    <p class="eyebrow">Collaborative sticky-note canvas</p>
+    <h1>Sticky<em>Board</em></h1>
+    <p>Post ideas, sort patterns, and move notes around a shared canvas for brainstorming, exit tickets, group work, and staff PD.</p>
+  </div>
+</header>
+
+<section class="topbar">
+  <div class="navcard">
+    <div class="links">
+      <a class="btn secondary" href="Submit.html">Add a Sticky Note</a>
+      <a class="btn ghost" href="#digital-citizenship">Digital Citizenship</a>
+      <a class="btn ghost" href="Admin.html">Admin</a>
+    </div>
+    <div class="status" id="statusText">Loading board...</div>
+  </div>
+</section>
+
+<main class="wrap">
+  <div class="toolbar">
+    <input id="searchInput" type="search" placeholder="Search sticky notes">
+    <select id="categoryFilter" aria-label="Filter by category"><option value="all">All categories</option></select>
+    <select id="sortSelect" aria-label="Sort notes"><option value="position">Canvas position</option><option value="newest">Newest first</option><option value="color">Group by color</option></select>
+  </div>
+
+  <section class="canvas-wrap">
+    <div id="canvas" class="canvas" aria-live="polite"></div>
+  </section>
+
+  <section class="disclaimer" id="digital-citizenship">
+    <h2>Digital Citizenship Reminder</h2>
+    <p>StickyBoard is a learning space. Even when names are optional, every note should be appropriate for a classroom, workshop, or staff meeting.</p>
+    <ul>
+      <li>Share ideas that help the group think, plan, solve, or reflect.</li>
+      <li>Do not include private information, student names, jokes at someone’s expense, or harmful language.</li>
+      <li>Use a professional tone and follow campus, district, and workshop expectations.</li>
+      <li>If moderation is on, notes appear only after approval. If moderation is off, the facilitator may still hide or delete notes.</li>
+    </ul>
+  </section>
+</main>
+
+<footer class="footer">StickyBoard is a free, self-hosted Jamboard-style sticky-note canvas for classrooms, workshops, and staff PD.</footer>
+
+<script>
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzRn18wspzzBkO9dNTIJsoRijSOqZU3HofsouMfZH0JpwpQa3IbtI_uMoUCqB6UoLb1dw/exec';
+const REFRESH_SECONDS = 20;
+let notes = [];
+let drag = null;
+const canvas = document.getElementById('canvas');
+const statusText = document.getElementById('statusText');
+const searchInput = document.getElementById('searchInput');
+const categoryFilter = document.getElementById('categoryFilter');
+const sortSelect = document.getElementById('sortSelect');
+
+function escapeHtml(str){return String(str||'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));}
+function timeLabel(value){const d=new Date(value); if(isNaN(d)) return ''; return d.toLocaleString([], {month:'short', day:'numeric', hour:'numeric', minute:'2-digit'});}
+function tilt(id){let total=0; for(const ch of String(id)) total+=ch.charCodeAt(0); return ((total%9)-4)+'deg';}
+
+async function apiGet(){
+  if(SCRIPT_URL.indexOf('PASTE_YOUR')===0){statusText.textContent='Backend not configured';canvas.innerHTML='<div class="empty">Paste your Apps Script Web App URL into SCRIPT_URL in index.html.</div>';return;}
+  try{
+    const res=await fetch(SCRIPT_URL+'?action=list&_='+Date.now());
+    const data=await res.json();
+    if(!data.ok) throw new Error(data.error||'Could not load notes.');
+    notes=data.notes||[];
+    statusText.textContent=(notes.length===1?'1 visible note':notes.length+' visible notes')+(data.moderationEnabled?' • Moderated':' • Open posting');
+    updateCategories();
+    render();
+  }catch(err){statusText.textContent='Connection issue';canvas.innerHTML='<div class="empty">'+escapeHtml(err.message)+'</div>';}
+}
+
+function updateCategories(){
+  const current=categoryFilter.value;
+  const cats=[...new Set(notes.map(n=>n.category||'General'))].sort();
+  categoryFilter.innerHTML='<option value="all">All categories</option>'+cats.map(c=>`<option value="${escapeHtml(c)}">${escapeHtml(c)}</option>`).join('');
+  if(cats.includes(current)) categoryFilter.value=current;
+}
+
+function filteredNotes(){
+  const term=searchInput.value.trim().toLowerCase();
+  const cat=categoryFilter.value;
+  let list=notes.filter(n=>{
+    const hay=[n.note,n.displayName,n.category,n.color].join(' ').toLowerCase();
+    return (!term || hay.includes(term)) && (cat==='all' || n.category===cat);
+  });
+  if(sortSelect.value==='newest') list.sort((a,b)=>new Date(b.timestamp)-new Date(a.timestamp));
+  if(sortSelect.value==='color') list.sort((a,b)=>String(a.color).localeCompare(String(b.color)) || new Date(b.timestamp)-new Date(a.timestamp));
+  return list;
+}
+
+function render(){
+  const list=filteredNotes();
+  if(!list.length){canvas.innerHTML='<div class="empty">No visible sticky notes yet. Add one to get started.</div>';return;}
+  canvas.innerHTML=list.map(n=>`<article class="note ${escapeHtml(n.color||'yellow')}" data-id="${escapeHtml(n.id)}" style="left:${Number(n.x||10)}%;top:${Number(n.y||10)}%;--tilt:${tilt(n.id)}" tabindex="0">
+    <span class="category">${escapeHtml(n.category||'General')}</span>
+    <p class="note-text">${escapeHtml(n.note)}</p>
+    <div class="note-meta">${escapeHtml(n.displayName||'Anonymous')} • ${escapeHtml(timeLabel(n.timestamp))}</div>
+  </article>`).join('');
+  canvas.querySelectorAll('.note').forEach(el=>el.addEventListener('pointerdown',startDrag));
+}
+
+function startDrag(event){
+  if(SCRIPT_URL.indexOf('PASTE_YOUR')===0) return;
+  const el=event.currentTarget;
+  el.setPointerCapture(event.pointerId);
+  const rect=canvas.getBoundingClientRect();
+  const noteRect=el.getBoundingClientRect();
+  drag={el,id:el.dataset.id,offsetX:event.clientX-noteRect.left,offsetY:event.clientY-noteRect.top,rect};
+  el.addEventListener('pointermove',moveDrag);
+  el.addEventListener('pointerup',endDrag,{once:true});
+  el.addEventListener('pointercancel',endDrag,{once:true});
+}
+
+function moveDrag(event){
+  if(!drag) return;
+  const x=Math.max(0,Math.min(drag.rect.width-drag.el.offsetWidth,event.clientX-drag.rect.left-drag.offsetX));
+  const y=Math.max(0,Math.min(drag.rect.height-drag.el.offsetHeight,event.clientY-drag.rect.top-drag.offsetY));
+  drag.el.style.left=(x/drag.rect.width*100).toFixed(2)+'%';
+  drag.el.style.top=(y/drag.rect.height*100).toFixed(2)+'%';
+}
+
+async function endDrag(event){
+  if(!drag) return;
+  drag.el.removeEventListener('pointermove',moveDrag);
+  const x=parseFloat(drag.el.style.left);
+  const y=parseFloat(drag.el.style.top);
+  const id=drag.id;
+  drag=null;
+  try{
+    const body=new URLSearchParams({action:'move',id,x,y});
+    const res=await fetch(SCRIPT_URL,{method:'POST',body});
+    const data=await res.json();
+    if(!data.ok) throw new Error(data.error||'Position was not saved.');
+    const n=notes.find(item=>item.id===id); if(n){n.x=x;n.y=y;}
+  }catch(err){statusText.textContent=err.message;}
+}
+
+searchInput.addEventListener('input',render);
+categoryFilter.addEventListener('change',render);
+sortSelect.addEventListener('change',render);
+apiGet();
+setInterval(apiGet, REFRESH_SECONDS*1000);
+</script>
+</body>
+</html>
