@@ -23,7 +23,7 @@ A password-protected space for small-group discussion, workshop reflection, and 
 ## Topic 1 - Let Go
 
 <!-- topicId: ai-prompt-reflection -->
-<!-- passwordHash: 9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08 -->
+<!-- passwordHash: 35e164b58b37c50b835328eedc9ad8d6f526954a4334ca6b16dc8c2c9a478430 -->
 <!-- status: open -->
 
 What's one strategy from Let Go that you want to put into practice right away?
@@ -31,7 +31,7 @@ What's one strategy from Let Go that you want to put into practice right away?
 ## Topic 2 - Let Them
 
 <!-- topicId: classroom-use-cases -->
-<!-- passwordHash: 9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08 -->
+<!-- passwordHash: 35e164b58b37c50b835328eedc9ad8d6f526954a4334ca6b16dc8c2c9a478430 -->
 <!-- status: open -->
 
 Share a practical classroom or professional learning use case for Let Them. Reply to at least one colleague with a question or suggestion.
@@ -39,7 +39,7 @@ Share a practical classroom or professional learning use case for Let Them. Repl
 ## Topic 3 - Crisis Engineering
 
 <!-- topicId: concerns-and-guardrails -->
-<!-- passwordHash: 9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08 -->
+<!-- passwordHash: 35e164b58b37c50b835328eedc9ad8d6f526954a4334ca6b16dc8c2c9a478430 -->
 <!-- status: open -->
 
 What do you think about this book?
