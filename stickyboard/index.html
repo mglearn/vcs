@@ -96,19 +96,69 @@ function filteredNotes(){
     const hay=[n.note,n.displayName,n.category,n.color].join(' ').toLowerCase();
     return (!term || hay.includes(term)) && (cat==='all' || n.category===cat);
   });
-  if(sortSelect.value==='newest') list.sort((a,b)=>new Date(b.timestamp)-new Date(a.timestamp));
-  if(sortSelect.value==='color') list.sort((a,b)=>String(a.color).localeCompare(String(b.color)) || new Date(b.timestamp)-new Date(a.timestamp));
+
+  if(sortSelect.value==='position'){
+    list.sort((a,b)=>(Number(a.y||0)-Number(b.y||0)) || (Number(a.x||0)-Number(b.x||0)));
+  }
+
+  if(sortSelect.value==='newest'){
+    list.sort((a,b)=>new Date(b.timestamp)-new Date(a.timestamp));
+  }
+
+  if(sortSelect.value==='color'){
+    const colorOrder=['yellow','blue','green','pink','purple','orange'];
+    list.sort((a,b)=>{
+      const colorCompare=colorOrder.indexOf(a.color)-colorOrder.indexOf(b.color);
+      return colorCompare || new Date(b.timestamp)-new Date(a.timestamp);
+    });
+  }
+
   return list;
+}
+
+function layoutSettings(count){
+  const rect=canvas.getBoundingClientRect();
+  const noteWidth=window.innerWidth<=640?165:190;
+  const noteHeight=175;
+  const gap=18;
+  const columns=Math.max(1,Math.floor((rect.width-gap)/(noteWidth+gap)));
+  const rows=Math.max(1,Math.ceil(count/columns));
+  const baseHeight=window.innerWidth<=640?760:620;
+  return {rect,noteWidth,noteHeight,gap,columns,rows,baseHeight};
+}
+
+function arrangedPosition(n,index,layout){
+  if(sortSelect.value==='position'){
+    return {x:Number(n.x||10),y:Number(n.y||10)};
+  }
+
+  const col=index%layout.columns;
+  const row=Math.floor(index/layout.columns);
+  const xPx=layout.gap+col*(layout.noteWidth+layout.gap);
+  const yPx=layout.gap+row*(layout.noteHeight+layout.gap);
+  const rect=canvas.getBoundingClientRect();
+  const x=(xPx/Math.max(rect.width,1))*100;
+  const y=(yPx/Math.max(rect.height,1))*100;
+  return {x:x.toFixed(2),y:y.toFixed(2)};
 }
 
 function render(){
   const list=filteredNotes();
   if(!list.length){canvas.innerHTML='<div class="empty">No visible sticky notes yet. Add one to get started.</div>';return;}
-  canvas.innerHTML=list.map(n=>`<article class="note ${escapeHtml(n.color||'yellow')}" data-id="${escapeHtml(n.id)}" style="left:${Number(n.x||10)}%;top:${Number(n.y||10)}%;--tilt:${tilt(n.id)}" tabindex="0">
+  const layout=layoutSettings(list.length);
+  if(sortSelect.value==='position'){
+    canvas.style.minHeight='';
+  }else{
+    canvas.style.minHeight=Math.max(layout.baseHeight,layout.rows*(layout.noteHeight+layout.gap)+layout.gap)+'px';
+  }
+  canvas.innerHTML=list.map((n,index)=>{
+    const pos=arrangedPosition(n,index,layout);
+    return `<article class="note ${escapeHtml(n.color||'yellow')}" data-id="${escapeHtml(n.id)}" style="left:${pos.x}%;top:${pos.y}%;--tilt:${tilt(n.id)}" tabindex="0">
     <span class="category">${escapeHtml(n.category||'General')}</span>
     <p class="note-text">${escapeHtml(n.note)}</p>
     <div class="note-meta">${escapeHtml(n.displayName||'Anonymous')} • ${escapeHtml(timeLabel(n.timestamp))}</div>
-  </article>`).join('');
+  </article>`;
+  }).join('');
   canvas.querySelectorAll('.note').forEach(el=>el.addEventListener('pointerdown',startDrag));
 }
 
@@ -151,6 +201,7 @@ async function endDrag(event){
 searchInput.addEventListener('input',render);
 categoryFilter.addEventListener('change',render);
 sortSelect.addEventListener('change',render);
+window.addEventListener('resize',render);
 apiGet();
 setInterval(apiGet, REFRESH_SECONDS*1000);
 </script>
