@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vibe Coding Projects for Librarians | TCEA</title>
+<meta name="description" content="Library-specific use cases, starter prompts, and downloadable tools for vibe-coding free alternatives to Padlet, Slido, and FigJam. By Miguel Guhlin, TCEA.">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0A3476;
+    --navy-dark: #071F4A;
+    --navy-mid: #12428F;
+    --gold: #FCB040;
+    --gold-light: #FDD17A;
+    --gold-pale: #FEF0D0;
+    --pale-navy: #D0D8F0;
+    --white: #FFFFFF;
+    --off-white: #F7F8FC;
+    --text: #1A1A2E;
+    --text-muted: #5A6680;
+    --border: #E2E7F5;
+    --teal: #0E6B8A;
+    --teal-pale: #D9ECF2;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--off-white);
+    color: var(--text);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ============ NAV ============ */
+  .nav {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--navy);
+    border-bottom: 3px solid var(--gold);
+  }
+  .nav-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0.8rem 1.5rem;
+    gap: 1rem;
+  }
+  .nav-brand {
+    display: flex; align-items: center; gap: 0.7rem;
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.15rem; color: var(--white);
+    text-decoration: none;
+  }
+  .nav-brand-mark {
+    width: 32px; height: 32px;
+    background: var(--gold); color: var(--navy);
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-family: 'DM Sans', sans-serif;
+    font-size: 1rem;
+  }
+  .nav-brand-text { color: var(--white); }
+  .nav-brand-text small { display: block; font-family: 'DM Sans', sans-serif; font-size: 0.7rem; color: var(--gold-light); font-weight: 400; letter-spacing: 0.05em; text-transform: uppercase; }
+  .nav-links { display: flex; gap: 0.3rem; flex-wrap: wrap; }
+  .nav-links a {
+    color: var(--pale-navy); text-decoration: none;
+    padding: 0.4rem 0.8rem; border-radius: 4px;
+    font-size: 0.85rem; font-weight: 500;
+    transition: background 0.15s, color 0.15s;
+  }
+  .nav-links a:hover { background: var(--navy-dark); color: var(--white); }
+
+  /* ============ HERO ============ */
+  .hero {
+    background: var(--navy-dark);
+    color: var(--white);
+    padding: 4rem 1.5rem 5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: ""; position: absolute; top: 0; right: 0; width: 2rem; height: 6rem;
+    background: var(--gold);
+  }
+  .hero::after {
+    content: ""; position: absolute; bottom: 0; left: 0; width: 6rem; height: 2rem;
+    background: var(--gold);
+  }
+  .hero-inner { max-width: 1100px; margin: 0 auto; position: relative; z-index: 1; }
+  .eyebrow {
+    display: inline-block;
+    font-size: 0.8rem; font-weight: 700; letter-spacing: 0.18em;
+    color: var(--gold); text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+  .hero h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2.2rem, 5vw, 3.8rem);
+    line-height: 1.05;
+    margin-bottom: 1rem;
+    max-width: 900px;
+  }
+  .hero h1 em { color: var(--gold-light); font-style: italic; }
+  .hero-lead {
+    font-size: 1.15rem;
+    color: var(--pale-navy);
+    max-width: 720px;
+    margin-bottom: 1.8rem;
+    line-height: 1.55;
+  }
+  .hero-meta {
+    display: flex; flex-wrap: wrap; gap: 1.5rem 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255,255,255,0.15);
+    max-width: 720px;
+  }
+  .hero-meta-item { font-size: 0.85rem; color: var(--pale-navy); }
+  .hero-meta-item strong { display: block; color: var(--white); font-size: 1rem; margin-bottom: 0.1rem; }
+
+  /* ============ SECTIONS ============ */
+  section { padding: 4rem 1.5rem; }
+  .section-inner { max-width: 1100px; margin: 0 auto; }
+  .section-eyebrow {
+    font-size: 0.75rem; font-weight: 700; letter-spacing: 0.18em;
+    color: var(--gold); text-transform: uppercase; margin-bottom: 0.5rem;
+  }
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(1.7rem, 3.5vw, 2.4rem);
+    color: var(--navy);
+    margin-bottom: 0.6rem; line-height: 1.1;
+  }
+  .section-lead {
+    font-size: 1.05rem; color: var(--text-muted);
+    margin-bottom: 2.5rem; max-width: 760px;
+    font-style: italic;
+  }
+  .section-divider {
+    width: 2.5rem; height: 4px; background: var(--gold);
+    margin: 0.6rem 0 1.2rem;
+  }
+
+  /* ============ TOOL CARDS (TOP) ============ */
+  .tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  .tool-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.15s, box-shadow 0.15s;
+    display: flex; flex-direction: column;
+  }
+  .tool-card:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(10,52,118,0.1); }
+  .tool-card-header {
+    background: var(--navy);
+    color: var(--white);
+    padding: 1.4rem 1.5rem 1.1rem;
+    position: relative;
+  }
+  .tool-card-header::before {
+    content: ""; position: absolute; top: 0; left: 0;
+    width: 3rem; height: 3px; background: var(--gold);
+  }
+  .tool-card-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.6rem; margin-bottom: 0.25rem;
+  }
+  .tool-card-tagline {
+    color: var(--gold-light);
+    font-size: 0.85rem; font-style: italic;
+  }
+  .tool-card-body {
+    padding: 1.3rem 1.5rem 1rem;
+    flex: 1; display: flex; flex-direction: column; gap: 0.9rem;
+  }
+  .tool-card-desc { color: var(--text); font-size: 0.95rem; }
+  .tool-card-replaces {
+    margin-top: auto;
+    background: var(--gold-pale);
+    color: var(--navy);
+    font-size: 0.78rem; font-weight: 600;
+    padding: 0.4rem 0.8rem;
+    border-radius: 3px;
+    display: inline-flex; align-self: flex-start;
+    letter-spacing: 0.03em;
+  }
+  .tool-card-links {
+    border-top: 1px solid var(--border);
+    padding: 0.8rem 1.5rem 1.3rem;
+    display: flex; gap: 0.6rem; flex-wrap: wrap;
+  }
+  .btn {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    padding: 0.5rem 0.9rem;
+    border-radius: 5px;
+    font-size: 0.82rem; font-weight: 600;
+    text-decoration: none;
+    transition: background 0.15s, color 0.15s;
+  }
+  .btn-primary { background: var(--gold); color: var(--navy); }
+  .btn-primary:hover { background: var(--navy); color: var(--white); }
+  .btn-outline {
+    background: var(--white); color: var(--navy);
+    border: 1.5px solid var(--navy);
+  }
+  .btn-outline:hover { background: var(--navy); color: var(--white); }
+
+  /* ============ VIBES STRIP ============ */
+  .vibes-section {
+    background: var(--white);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .vibes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+  .vibes-card {
+    background: var(--off-white);
+    border: 1px solid var(--border);
+    border-top: 3px solid var(--navy);
+    border-radius: 8px;
+    padding: 1.2rem 1.1rem;
+  }
+  .vibes-card:nth-child(2), .vibes-card:nth-child(4) { border-top-color: var(--teal); }
+  .vibes-letter {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2.5rem; line-height: 1;
+    color: var(--navy);
+    margin-bottom: 0.3rem;
+  }
+  .vibes-card:nth-child(2) .vibes-letter,
+  .vibes-card:nth-child(4) .vibes-letter { color: var(--teal); }
+  .vibes-num {
+    display: inline-block;
+    background: var(--gold); color: var(--navy);
+    width: 1.4rem; height: 1.4rem;
+    border-radius: 50%;
+    font-size: 0.78rem; font-weight: 700;
+    text-align: center; line-height: 1.4rem;
+    margin-bottom: 0.5rem;
+  }
+  .vibes-word {
+    font-size: 1rem; font-weight: 700; color: var(--navy);
+    margin-bottom: 0.4rem;
+  }
+  .vibes-desc { font-size: 0.85rem; color: var(--text-muted); line-height: 1.45; }
+
+  /* ============ USE CASE FILTER ============ */
+  .filter-bar {
+    display: flex; gap: 0.5rem; flex-wrap: wrap;
+    margin-bottom: 1.8rem;
+  }
+  .filter-pill {
+    background: var(--white);
+    border: 1.5px solid var(--border);
+    color: var(--text);
+    padding: 0.45rem 0.95rem;
+    border-radius: 20px;
+    font-size: 0.85rem; font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s;
+    font-family: inherit;
+  }
+  .filter-pill:hover { border-color: var(--navy); color: var(--navy); }
+  .filter-pill.active {
+    background: var(--navy); color: var(--white); border-color: var(--navy);
+  }
+
+  /* ============ USE CASE CARDS ============ */
+  .uc-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.2rem;
+  }
+  .uc-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.3rem;
+    display: flex; flex-direction: column;
+    transition: opacity 0.2s, transform 0.2s;
+  }
+  .uc-card.hidden { display: none; }
+  .uc-card-top {
+    display: flex; align-items: center; gap: 0.5rem;
+    margin-bottom: 0.7rem;
+  }
+  .uc-tool-badge {
+    display: inline-block;
+    font-size: 0.7rem; font-weight: 700;
+    padding: 0.2rem 0.55rem;
+    border-radius: 3px;
+    letter-spacing: 0.04em;
+  }
+  .uc-tool-badge.sharespace { background: var(--gold-pale); color: var(--navy); }
+  .uc-tool-badge.wonderwall { background: var(--pale-navy); color: var(--navy); }
+  .uc-tool-badge.stickyboard { background: var(--teal-pale); color: var(--teal); }
+  .uc-program {
+    font-size: 0.72rem; color: var(--text-muted);
+    letter-spacing: 0.04em; text-transform: uppercase;
+    margin-left: auto;
+  }
+  .uc-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.15rem; color: var(--navy);
+    margin-bottom: 0.5rem; line-height: 1.25;
+  }
+  .uc-desc {
+    font-size: 0.88rem; color: var(--text);
+    line-height: 1.55; flex: 1;
+    margin-bottom: 0.8rem;
+  }
+  .uc-meta {
+    font-size: 0.78rem; color: var(--text-muted);
+    padding-top: 0.7rem;
+    border-top: 1px dashed var(--border);
+  }
+  .uc-meta strong { color: var(--navy); font-weight: 600; }
+
+  /* ============ PROMPT LIBRARY ============ */
+  .prompts-section { background: var(--navy-dark); color: var(--white); }
+  .prompts-section .section-title { color: var(--white); }
+  .prompts-section .section-eyebrow { color: var(--gold); }
+  .prompts-section .section-lead { color: var(--pale-navy); }
+
+  .prompt-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-left: 3px solid var(--gold);
+    border-radius: 6px;
+    padding: 1.3rem 1.4rem 1rem;
+    margin-bottom: 1rem;
+  }
+  .prompt-header {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 1rem; flex-wrap: wrap;
+    margin-bottom: 0.8rem;
+  }
+  .prompt-label {
+    font-family: 'DM Serif Display', serif;
+    color: var(--white); font-size: 1.1rem;
+  }
+  .prompt-tool {
+    font-size: 0.7rem; font-weight: 700;
+    background: var(--gold); color: var(--navy);
+    padding: 0.2rem 0.55rem;
+    border-radius: 3px;
+    letter-spacing: 0.04em;
+  }
+  .prompt-body {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--pale-navy);
+    line-height: 1.65;
+    background: rgba(0,0,0,0.25);
+    padding: 1rem 1.2rem;
+    border-radius: 5px;
+    white-space: pre-wrap;
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+  .copy-btn {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.18);
+    color: var(--gold-light);
+    padding: 0.35rem 0.8rem;
+    border-radius: 4px;
+    font-size: 0.78rem; font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.15s;
+  }
+  .copy-btn:hover { background: var(--gold); color: var(--navy); border-color: var(--gold); }
+  .copy-btn.copied { background: var(--gold); color: var(--navy); border-color: var(--gold); }
+
+  /* ============ DOWNLOADS ============ */
+  .dl-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+  }
+  .dl-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.2rem 1.4rem;
+    display: flex; align-items: flex-start; gap: 0.9rem;
+    text-decoration: none;
+    color: var(--text);
+    transition: all 0.15s;
+  }
+  .dl-card:hover {
+    border-color: var(--navy);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(10,52,118,0.08);
+  }
+  .dl-icon {
+    width: 38px; height: 38px;
+    background: var(--gold);
+    border-radius: 6px;
+    color: var(--navy);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 1.1rem;
+    flex-shrink: 0;
+  }
+  .dl-title {
+    font-size: 0.95rem; font-weight: 600; color: var(--navy);
+    margin-bottom: 0.2rem;
+  }
+  .dl-sub { font-size: 0.78rem; color: var(--text-muted); }
+
+  /* ============ FOOTER ============ */
+  footer {
+    background: var(--navy-dark);
+    color: var(--pale-navy);
+    padding: 2.5rem 1.5rem;
+    text-align: center;
+    border-top: 4px solid var(--gold);
+  }
+  footer p { font-size: 0.85rem; margin-bottom: 0.4rem; }
+  footer a { color: var(--gold-light); text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width: 700px) {
+    .nav-inner { flex-direction: column; align-items: flex-start; }
+    .hero { padding: 2.5rem 1.2rem 3rem; }
+    section { padding: 3rem 1.2rem; }
+    .hero-meta { gap: 1.2rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#top" class="nav-brand">
+      <span class="nav-brand-mark">T</span>
+      <span class="nav-brand-text">Vibe Coding for Librarians<small>TCEA · Companion Resource</small></span>
+    </a>
+    <div class="nav-links">
+      <a href="#tools">Tools</a>
+      <a href="#vibes">VIBES</a>
+      <a href="#use-cases">Use Cases</a>
+      <a href="#prompts">Prompts</a>
+      <a href="#downloads">Downloads</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="top">
+  <div class="hero-inner">
+    <span class="eyebrow">Built for School Librarians</span>
+    <h1>Vibe Coding Projects <em>for Librarians</em></h1>
+    <p class="hero-lead">
+      Three downloadable tools, library-tested use cases, and starter prompts you can paste straight into your AI of choice.
+      Drop the subscriptions. Keep the workflow. Own the files.
+    </p>
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <strong>3 tools</strong>
+        Free, customizable, yours
+      </div>
+      <div class="hero-meta-item">
+        <strong>20+ use cases</strong>
+        Mapped to library programs
+      </div>
+      <div class="hero-meta-item">
+        <strong>10 minutes</strong>
+        From download to first deploy
+      </div>
+      <div class="hero-meta-item">
+        <strong>$0</strong>
+        Per student, per month, ever
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TOOLS ============ -->
+<section id="tools">
+  <div class="section-inner">
+    <div class="section-eyebrow">The Toolkit</div>
+    <h2 class="section-title">Three Tools You Take Home</h2>
+    <div class="section-divider"></div>
+    <p class="section-lead">Each tool runs on a single page or a small folder of files. You own every byte.</p>
+
+    <div class="tools-grid">
+
+      <div class="tool-card">
+        <div class="tool-card-header">
+          <div class="tool-card-name">ShareSpace</div>
+          <div class="tool-card-tagline">Padlet alternative you own</div>
+        </div>
+        <div class="tool-card-body">
+          <p class="tool-card-desc">A student submission board where uploads land in your own Google Drive. Moderated or open. Categorized. Mobile-friendly.</p>
+          <span class="tool-card-replaces">Replaces Padlet, Bulb</span>
+        </div>
+        <div class="tool-card-links">
+          <a class="btn btn-primary" href="https://mglearn.github.io/vcs/sharespace-demo.zip">Download</a>
+          <a class="btn btn-outline" href="#sharespace-prompts">See Prompt</a>
+        </div>
+      </div>
+
+      <div class="tool-card">
+        <div class="tool-card-header">
+          <div class="tool-card-name">WonderWall</div>
+          <div class="tool-card-tagline">Moderated Q&amp;A wall</div>
+        </div>
+        <div class="tool-card-body">
+          <p class="tool-card-desc">Anonymous question wall for author visits, research workshops, and PD. You approve before questions go public.</p>
+          <span class="tool-card-replaces">Replaces Slido, Mentimeter</span>
+        </div>
+        <div class="tool-card-links">
+          <a class="btn btn-primary" href="https://mglearn.github.io/vcs/wonderwall-demo.zip">Download</a>
+          <a class="btn btn-outline" href="https://mglearn.github.io/vcs/wonderwall">Live Demo</a>
+        </div>
+      </div>
+
+      <div class="tool-card">
+        <div class="tool-card-header">
+          <div class="tool-card-name">StickyBoard</div>
+          <div class="tool-card-tagline">Collaborative sticky-note canvas</div>
+        </div>
+        <div class="tool-card-body">
+          <p class="tool-card-desc">Multi-color sticky notes on a shared canvas. Built to fill the Jamboard-shaped hole in your library.</p>
+          <span class="tool-card-replaces">Replaces FigJam, Lucidspark</span>
+        </div>
+        <div class="tool-card-links">
+          <a class="btn btn-primary" href="https://mglearn.github.io/vcs/stickyboard-demo.zip">Download</a>
+          <a class="btn btn-outline" href="https://mglearn.github.io/vcs/stickyboard/">Live Demo</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ VIBES ============ -->
+<section id="vibes" class="vibes-section">
+  <div class="section-inner">
+    <div class="section-eyebrow">The Method</div>
+    <h2 class="section-title">The VIBES Framework</h2>
+    <div class="section-divider"></div>
+    <p class="section-lead">A five-step mental model for vibe-coding with any major AI assistant.</p>
+
+    <div class="vibes-grid">
+      <div class="vibes-card">
+        <div class="vibes-letter">V</div>
+        <div class="vibes-num">1</div>
+        <div class="vibes-word">Vision</div>
+        <p class="vibes-desc">Decide what you want to build before you open a chat window.</p>
+      </div>
+      <div class="vibes-card">
+        <div class="vibes-letter">I</div>
+        <div class="vibes-num">2</div>
+        <div class="vibes-word">Instruct</div>
+        <p class="vibes-desc">Write a prompt that gives the AI enough context to start.</p>
+      </div>
+      <div class="vibes-card">
+        <div class="vibes-letter">B</div>
+        <div class="vibes-num">3</div>
+        <div class="vibes-word">Build</div>
+        <p class="vibes-desc">Generate code in small chunks and iterate conversationally.</p>
+      </div>
+      <div class="vibes-card">
+        <div class="vibes-letter">E</div>
+        <div class="vibes-num">4</div>
+        <div class="vibes-word">Evaluate</div>
+        <p class="vibes-desc">Run it, read it, and verify it actually does what you wanted.</p>
+      </div>
+      <div class="vibes-card">
+        <div class="vibes-letter">S</div>
+        <div class="vibes-num">5</div>
+        <div class="vibes-word">Ship</div>
+        <p class="vibes-desc">Save, host, or share the working result.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ USE CASES ============ -->
+<section id="use-cases">
+  <div class="section-inner">
+    <div class="section-eyebrow">Library Use Cases</div>
+    <h2 class="section-title">Project Ideas Tagged by Program Area</h2>
+    <div class="section-divider"></div>
+    <p class="section-lead">Filter by area or by tool. Every card maps to something you probably already do.</p>
+
+    <div class="filter-bar" role="group" aria-label="Filter use cases">
+      <button class="filter-pill active" data-filter="all">All</button>
+      <button class="filter-pill" data-filter="reading">Reading Programs</button>
+      <button class="filter-pill" data-filter="author">Author Visits</button>
+      <button class="filter-pill" data-filter="research">Research &amp; Inquiry</button>
+      <button class="filter-pill" data-filter="makerspace">Makerspace</button>
+      <button class="filter-pill" data-filter="bookclub">Book Clubs</button>
+      <button class="filter-pill" data-filter="staff">Staff &amp; PD</button>
+      <button class="filter-pill" data-filter="sharespace">ShareSpace</button>
+      <button class="filter-pill" data-filter="wonderwall">WonderWall</button>
+      <button class="filter-pill" data-filter="stickyboard">StickyBoard</button>
+    </div>
+
+    <div class="uc-grid" id="ucGrid">
+      <!-- Cards inserted by JS for cleaner markup -->
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROMPTS ============ -->
+<section id="prompts" class="prompts-section">
+  <div class="section-inner">
+    <div class="section-eyebrow">Starter Prompts</div>
+    <h2 class="section-title">Paste These Into Your AI of Choice</h2>
+    <div class="section-divider"></div>
+    <p class="section-lead">Drop a prompt into ChatGPT, Claude, Gemini, or BoodleBox. Then iterate with the VIBES method.</p>
+
+    <div id="sharespace-prompts">
+
+      <div class="prompt-card">
+        <div class="prompt-header">
+          <span class="prompt-label">Summer Reading Submission Board</span>
+          <div style="display: flex; gap: 0.5rem; align-items: center;">
+            <span class="prompt-tool">SHARESPACE</span>
+            <button class="copy-btn" data-target="p1">Copy</button>
+          </div>
+        </div>
+        <div class="prompt-body" id="p1">I am a school librarian. I am not a developer. I want to customize the ShareSpace tool for a summer reading program.
+
+Please update the code so:
+- The categories on the upload page are "Picture Book", "Chapter Book", "Graphic Novel", "Audiobook", and "Other"
+- The reflection prompt reads "Tell us in two or three sentences what you loved about this book"
+- The page header reads "Roosevelt Elementary Summer Reading"
+- The page accent color is a warm orange instead of the default
+- A small line at the bottom reminds students their submission will be reviewed before going live
+
+Keep everything else the same. Give me the full updated files in one response.</div>
+      </div>
+
+      <div class="prompt-card">
+        <div class="prompt-header">
+          <span class="prompt-label">Author Visit Q&amp;A Wall</span>
+          <div style="display: flex; gap: 0.5rem; align-items: center;">
+            <span class="prompt-tool">WONDERWALL</span>
+            <button class="copy-btn" data-target="p2">Copy</button>
+          </div>
+        </div>
+        <div class="prompt-body" id="p2">I am a school librarian. I am hosting an author visit with Jason Reynolds for grades 6 through 8.
+
+Please customize the WonderWall tool so:
+- The header reads "Questions for Jason Reynolds"
+- A short paragraph at the top reminds students to keep questions respectful and on-topic
+- The submission form asks for a first name only, no last names
+- Once approved, questions appear with the student's first name and grade level
+- The moderation password is the word I will tell you in my next message
+
+Keep the rest of the structure intact. Give me the complete file in one response.</div>
+      </div>
+
+      <div class="prompt-card">
+        <div class="prompt-header">
+          <span class="prompt-label">Genre Sorting Activity</span>
+          <div style="display: flex; gap: 0.5rem; align-items: center;">
+            <span class="prompt-tool">STICKYBOARD</span>
+            <button class="copy-btn" data-target="p3">Copy</button>
+          </div>
+        </div>
+        <div class="prompt-body" id="p3">I am a school librarian working with fourth graders on a genre sorting activity.
+
+Please customize the StickyBoard tool so:
+- The board has five labeled zones across the top: Realistic Fiction, Fantasy, Mystery, Biography, Informational
+- Sticky notes start in a "Books to Sort" zone at the bottom of the page
+- The sticky note prompt is "Type the title of a book you have read"
+- Sticky notes come in five matching colors, one per genre
+- The board title reads "Where Does This Book Belong?"
+
+Keep all the dragging and saving features intact. Give me the full file.</div>
+      </div>
+
+      <div class="prompt-card">
+        <div class="prompt-header">
+          <span class="prompt-label">Makerspace Project Showcase</span>
+          <div style="display: flex; gap: 0.5rem; align-items: center;">
+            <span class="prompt-tool">SHARESPACE</span>
+            <button class="copy-btn" data-target="p4">Copy</button>
+          </div>
+        </div>
+        <div class="prompt-body" id="p4">I am a school librarian running a Makerspace showcase. Students will submit photos, videos, or short writeups of what they built.
+
+Please customize the ShareSpace tool so:
+- The categories are "3D Print", "Cardboard Build", "Coding Project", "Textile/Sewing", and "Mixed Media"
+- The upload form asks for the student's name, grade, project category, and a one-sentence "What I learned"
+- The masonry board shows the project category as a colored pill on each card
+- The board title reads "Makerspace 2026 Showcase"
+- A small "Vote" button appears on each approved card; clicking it increments a counter
+
+Give me the complete updated files in one response.</div>
+      </div>
+
+      <div class="prompt-card">
+        <div class="prompt-header">
+          <span class="prompt-label">Anonymous "Ask the Librarian" Wall</span>
+          <div style="display: flex; gap: 0.5rem; align-items: center;">
+            <span class="prompt-tool">WONDERWALL</span>
+            <button class="copy-btn" data-target="p5">Copy</button>
+          </div>
+        </div>
+        <div class="prompt-body" id="p5">I am a middle school librarian. I want a tool where students can submit anonymous questions about books, research, or library services.
+
+Please customize the WonderWall tool so:
+- The header reads "Ask the Librarian"
+- The submission form is fully anonymous, no name, no grade
+- Submissions are tagged with one of three categories the student picks: "Book Help", "Research Help", "Library Question"
+- The public board groups questions by category
+- The moderation page shows the count of pending questions in each category
+- Approved questions show my one-paragraph answer if I add one
+
+Give me the full code.</div>
+      </div>
+
+      <div class="prompt-card">
+        <div class="prompt-header">
+          <span class="prompt-label">Book Club Discussion Board</span>
+          <div style="display: flex; gap: 0.5rem; align-items: center;">
+            <span class="prompt-tool">STICKYBOARD</span>
+            <button class="copy-btn" data-target="p6">Copy</button>
+          </div>
+        </div>
+        <div class="prompt-body" id="p6">I am a school librarian running a faculty book club. The book this month is "The Anxious Generation" by Jonathan Haidt.
+
+Please customize the StickyBoard tool so:
+- The board has four prompt zones: "A line that stuck with me", "A question I still have", "A connection to my classroom", "Something I disagree with"
+- Sticky notes come in four colors matched to those zones
+- The board title reads "Book Club: The Anxious Generation"
+- Below the title, the meeting date displays in a small italic line
+- New sticky notes default to the color of whatever zone they are dropped in
+
+Keep all drag, edit, and save features intact. Give me the full file.</div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ DOWNLOADS ============ -->
+<section id="downloads">
+  <div class="section-inner">
+    <div class="section-eyebrow">Get the Files</div>
+    <h2 class="section-title">Downloads and Resources</h2>
+    <div class="section-divider"></div>
+    <p class="section-lead">Open the zip, read the SETUP.md inside, and you will be running in the time it takes to drink a coffee.</p>
+
+    <div class="dl-grid">
+      <a class="dl-card" href="https://mglearn.github.io/vcs/sharespace-demo.zip">
+        <div class="dl-icon">S</div>
+        <div>
+          <div class="dl-title">ShareSpace (open)</div>
+          <div class="dl-sub">sharespace-demo.zip · No moderation, admin delete only</div>
+        </div>
+      </a>
+      <a class="dl-card" href="https://mglearn.github.io/vcs/sharespace-demo-moderated.zip">
+        <div class="dl-icon">S+</div>
+        <div>
+          <div class="dl-title">ShareSpace (moderated)</div>
+          <div class="dl-sub">sharespace-demo-moderated.zip · Approval flow built in</div>
+        </div>
+      </a>
+      <a class="dl-card" href="https://mglearn.github.io/vcs/wonderwall-demo.zip">
+        <div class="dl-icon">W</div>
+        <div>
+          <div class="dl-title">WonderWall</div>
+          <div class="dl-sub">wonderwall-demo.zip · Demo at mglearn.github.io/vcs/wonderwall</div>
+        </div>
+      </a>
+      <a class="dl-card" href="https://mglearn.github.io/vcs/stickyboard-demo.zip">
+        <div class="dl-icon">B</div>
+        <div>
+          <div class="dl-title">StickyBoard</div>
+          <div class="dl-sub">stickyboard-demo.zip · Includes image version</div>
+        </div>
+      </a>
+      <a class="dl-card" href="https://go.mgpd.org/md">
+        <div class="dl-icon">M</div>
+        <div>
+          <div class="dl-title">Markdown Cleaner</div>
+          <div class="dl-sub">go.mgpd.org/md · Bonus tool, works on phones</div>
+        </div>
+      </a>
+      <a class="dl-card" href="https://blog.tcea.org/vibe-coded-solutions/">
+        <div class="dl-icon">+</div>
+        <div>
+          <div class="dl-title">Original Blog Post</div>
+          <div class="dl-sub">blog.tcea.org/vibe-coded-solutions · Background and screenshots</div>
+        </div>
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <p><strong style="color: var(--white); font-family: 'DM Serif Display', serif; font-size: 1.05rem;">Miguel Guhlin</strong></p>
+  <p>Director of Professional Development, TCEA</p>
+  <p style="margin-top: 0.8rem;">
+    <a href="https://blog.tcea.org">blog.tcea.org</a>
+    &nbsp;·&nbsp;
+    <a href="https://mguhlin.org">mguhlin.org</a>
+    &nbsp;·&nbsp;
+    <a href="https://tcea.org/courses/ai-essentials-for-educators/">AI Essentials for Educators</a>
+  </p>
+  <p style="margin-top: 1rem; opacity: 0.6; font-size: 0.75rem;">Companion resource for "Vibe Your Way to Free" · TCEA 2026</p>
+</footer>
+
+<script>
+  // ============ USE CASE DATA ============
+  const useCases = [
+    // SHARESPACE
+    { tool: "sharespace", program: "reading", title: "Summer Reading Submission Wall",
+      desc: "Students submit photos of themselves with a book and a short review. Files land in your Drive. Filter by grade or genre.",
+      meta: "Best for: K-12 summer programs and reading challenges" },
+    { tool: "sharespace", program: "author", title: "Author Visit Reflection Board",
+      desc: "Students drop a one-paragraph reflection plus a drawing or photo after meeting an author. Curate the best for the lobby wall.",
+      meta: "Best for: post-visit grades 3-8" },
+    { tool: "sharespace", program: "makerspace", title: "Makerspace Project Showcase",
+      desc: "End-of-quarter showcase. Students upload a photo of their build and answer one question: what would you change next time?",
+      meta: "Best for: 3D print, cardboard, e-textile, and coding builds" },
+    { tool: "sharespace", program: "reading", title: "Student Book Recommendation Gallery",
+      desc: "A rolling wall of student-curated recommendations. Each card shows the book, the recommender's grade, and one sentence on why.",
+      meta: "Best for: year-round browsing in the library lobby" },
+    { tool: "sharespace", program: "research", title: "Research Project Poster Submissions",
+      desc: "Replace the physical poster session. Students upload a PDF of their research poster plus a 30-second audio walk-through.",
+      meta: "Best for: middle and high school capstones" },
+    { tool: "sharespace", program: "staff", title: "Staff PD Book Club Artifact Wall",
+      desc: "Faculty drop annotations, sketchnotes, or one-page reflections from the book of the month. Searchable by chapter.",
+      meta: "Best for: campus or district book studies" },
+    { tool: "sharespace", program: "reading", title: "One Book One School Submissions",
+      desc: "Collect student responses to the shared title. Reflections, art, podcast clips, video reviews all go in the same Drive folder.",
+      meta: "Best for: campus-wide reading initiatives" },
+
+    // WONDERWALL
+    { tool: "wonderwall", program: "author", title: "Anonymous Author Visit Questions",
+      desc: "Students submit questions on phones or Chromebooks. You approve the keepers. Author sees only approved questions on screen.",
+      meta: "Best for: assemblies, video visits, and small-group sessions" },
+    { tool: "wonderwall", program: "research", title: "Research Workshop Stuck Point Wall",
+      desc: "When students hit a wall during database work, they post the question. You answer the common ones aloud once.",
+      meta: "Best for: any database or citation workshop" },
+    { tool: "wonderwall", program: "research", title: "Ask the Librarian Inquiry Board",
+      desc: "Standing anonymous question wall in the library. Students drop questions on books, services, or anything else. You answer weekly.",
+      meta: "Best for: middle and high school year-round use" },
+    { tool: "wonderwall", program: "bookclub", title: "Book Club Discussion Question Pool",
+      desc: "Members submit questions before the meeting. You curate the best five and use them to drive discussion.",
+      meta: "Best for: student or faculty book clubs" },
+    { tool: "wonderwall", program: "research", title: "Database Tutorial Q&A Station",
+      desc: "Pair with a recorded screencast. Students submit questions as they work; you record short follow-up clips for the ones that repeat.",
+      meta: "Best for: asynchronous library instruction" },
+    { tool: "wonderwall", program: "staff", title: "Library Staff Meeting Parking Lot",
+      desc: "Park anything that surfaces during the meeting and would otherwise derail. Revisit at the end or in the next agenda.",
+      meta: "Best for: department, grade-level, and committee meetings" },
+    { tool: "wonderwall", program: "reading", title: "New Title Suggestion Wall",
+      desc: "Standing wall where students suggest titles they want the library to acquire. You approve, tag, and route to your collection list.",
+      meta: "Best for: building a student-driven acquisition pipeline" },
+
+    // STICKYBOARD
+    { tool: "stickyboard", program: "reading", title: "Collaborative Genre Sorting",
+      desc: "Pre-loaded sticky notes with book titles. Students drag each into the right genre zone. Project on a screen for a whole-class activity.",
+      meta: "Best for: grades 2-6" },
+    { tool: "stickyboard", program: "reading", title: "Reading Response Head, Heart, Hand Board",
+      desc: "Three zones: what made me think, what made me feel, what I want to do. Students drop a sticky in each after reading.",
+      meta: "Best for: any read-aloud or book talk debrief" },
+    { tool: "stickyboard", program: "reading", title: "Book Talk Brainstorm Canvas",
+      desc: "Library aides or student readers brainstorm hook lines, key quotes, and a final pitch sentence for each title.",
+      meta: "Best for: pre-planning student-led book talks" },
+    { tool: "stickyboard", program: "staff", title: "Library Redesign Feedback Wall",
+      desc: "Replace the suggestion box. Patrons drop ideas on color-coded stickies: keep, change, add, remove. You see the pattern at a glance.",
+      meta: "Best for: end-of-year planning and space audits" },
+    { tool: "stickyboard", program: "reading", title: "Books I Want Next Year Collection",
+      desc: "Sticky-note version of a suggestion list. Students drop titles, authors, or even just vibes. You curate at the end of the year.",
+      meta: "Best for: collection development" },
+    { tool: "stickyboard", program: "staff", title: "Library Committee Planning Sessions",
+      desc: "Visible parking lot for goals, blockers, and quick wins during your monthly library committee meeting.",
+      meta: "Best for: committee and PLC work" },
+    { tool: "stickyboard", program: "makerspace", title: "Makerspace Idea Wall",
+      desc: "Standing brainstorm canvas. Students drop ideas for what they want to build. You harvest them when you plan the next unit.",
+      meta: "Best for: rotating Makerspace programming" },
+    { tool: "stickyboard", program: "bookclub", title: "Faculty Book Study Reflection Board",
+      desc: "Four quadrants: insight, question, application, disagreement. Faculty drop one sticky per meeting. Patterns emerge by month three.",
+      meta: "Best for: year-long PLC book studies" }
+  ];
+
+  // ============ RENDER USE CASES ============
+  const grid = document.getElementById("ucGrid");
+  function badgeClass(tool) {
+    return tool;
+  }
+  function badgeText(tool) {
+    return { sharespace: "ShareSpace", wonderwall: "WonderWall", stickyboard: "StickyBoard" }[tool];
+  }
+  function programLabel(p) {
+    return {
+      reading: "Reading", author: "Author Visit", research: "Research",
+      makerspace: "Makerspace", bookclub: "Book Club", staff: "Staff/PD"
+    }[p];
+  }
+
+  useCases.forEach(uc => {
+    const div = document.createElement("div");
+    div.className = "uc-card";
+    div.dataset.tool = uc.tool;
+    div.dataset.program = uc.program;
+    div.innerHTML = `
+      <div class="uc-card-top">
+        <span class="uc-tool-badge ${badgeClass(uc.tool)}">${badgeText(uc.tool)}</span>
+        <span class="uc-program">${programLabel(uc.program)}</span>
+      </div>
+      <div class="uc-title">${uc.title}</div>
+      <p class="uc-desc">${uc.desc}</p>
+      <div class="uc-meta">${uc.meta}</div>
+    `;
+    grid.appendChild(div);
+  });
+
+  // ============ FILTER ============
+  const pills = document.querySelectorAll(".filter-pill");
+  pills.forEach(pill => {
+    pill.addEventListener("click", () => {
+      pills.forEach(p => p.classList.remove("active"));
+      pill.classList.add("active");
+      const filter = pill.dataset.filter;
+      document.querySelectorAll(".uc-card").forEach(card => {
+        if (filter === "all") {
+          card.classList.remove("hidden");
+        } else if (filter === card.dataset.tool || filter === card.dataset.program) {
+          card.classList.remove("hidden");
+        } else {
+          card.classList.add("hidden");
+        }
+      });
+    });
+  });
+
+  // ============ COPY PROMPTS ============
+  document.querySelectorAll(".copy-btn").forEach(btn => {
+    btn.addEventListener("click", async () => {
+      const targetId = btn.dataset.target;
+      const text = document.getElementById(targetId).innerText;
+      try {
+        await navigator.clipboard.writeText(text);
+        const originalText = btn.innerText;
+        btn.innerText = "Copied!";
+        btn.classList.add("copied");
+        setTimeout(() => {
+          btn.innerText = originalText;
+          btn.classList.remove("copied");
+        }, 1800);
+      } catch (e) {
+        // Fallback for older browsers
+        const ta = document.createElement("textarea");
+        ta.value = text;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand("copy");
+        document.body.removeChild(ta);
+        btn.innerText = "Copied!";
+        setTimeout(() => { btn.innerText = "Copy"; }, 1800);
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
