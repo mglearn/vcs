@@ -521,6 +521,96 @@
     text-transform: uppercase;
   }
 
+  /* ============ TOOLS 10 ============ */
+  .tools10-section {
+    background: var(--white);
+  }
+  .tools10-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    gap: 0.9rem;
+    margin-bottom: 1.5rem;
+  }
+  .t10-card {
+    background: var(--off-white);
+    border: 1px solid var(--border);
+    border-top: 3px solid var(--navy);
+    border-radius: 8px;
+    padding: 0.95rem 1rem 1rem;
+    transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    min-height: 130px;
+  }
+  .t10-card:nth-child(2n) { border-top-color: var(--teal); }
+  .t10-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(10, 52, 118, 0.08);
+    border-color: var(--gold);
+    border-top-color: var(--gold);
+  }
+  .t10-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.3rem; height: 1.3rem;
+    background: var(--gold); color: var(--navy);
+    border-radius: 50%;
+    font-size: 0.72rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  .t10-name {
+    font-family: 'DM Sans', sans-serif;
+    color: var(--navy);
+    font-size: 0.98rem;
+    font-weight: 700;
+    margin: 0 0 0.3rem;
+    line-height: 1.25;
+  }
+  .t10-desc {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    line-height: 1.45;
+    flex: 1;
+  }
+  .tools10-cta {
+    background: var(--navy);
+    color: var(--white);
+    border-radius: 8px;
+    padding: 1rem 1.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    text-decoration: none;
+    transition: background 0.15s;
+  }
+  .tools10-cta:hover { background: var(--navy-dark); }
+  .tools10-cta-text {
+    color: var(--pale-navy);
+    font-size: 0.9rem;
+  }
+  .tools10-cta-text strong {
+    display: block;
+    color: var(--white);
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.05rem;
+    font-weight: 400;
+    margin-bottom: 0.1rem;
+  }
+  .tools10-cta-url {
+    background: var(--gold);
+    color: var(--navy-dark);
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    font-weight: 600;
+    font-size: 0.88rem;
+  }
+
   /* ============ FOOTER ============ */
   footer {
     background: var(--navy-dark);
@@ -555,6 +645,7 @@
       <a href="#tools">Tools</a>
       <a href="#vibes">VIBES</a>
       <a href="#built">Built Example</a>
+      <a href="#tools10">Tools 10</a>
       <a href="#use-cases">Use Cases</a>
       <a href="#prompts">Prompts</a>
       <a href="#downloads">Downloads</a>
@@ -739,6 +830,77 @@
         <div class="built-caption">The gallery board, as students and the school community see it.</div>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- ============ TOOLS 10 ============ -->
+<section id="tools10" class="tools10-section">
+  <div class="section-inner">
+    <div class="section-eyebrow">More Vibe-Coded Examples</div>
+    <h2 class="section-title">TCEA Tools 10</h2>
+    <div class="section-divider"></div>
+    <p class="section-lead">Ten classroom-ready activities, all vibe-coded, all free. Use them as-is or remix them with the VIBES framework.</p>
+
+    <div class="tools10-grid">
+      <a class="t10-card" href="https://mglearn.github.io/vcs/tools10/coinflipping/index.html" target="_blank" rel="noopener">
+        <span class="t10-num">1</span>
+        <div class="t10-name">Coin Flipper</div>
+        <div class="t10-desc">Probability with custom labels, colors, saved setups, and classroom activity modes.</div>
+      </a>
+      <a class="t10-card" href="https://mglearn.github.io/vcs/tools10/dice/index.html" target="_blank" rel="noopener">
+        <span class="t10-num">2</span>
+        <div class="t10-name">Dice Roller</div>
+        <div class="t10-desc">Simple classroom dice, or advanced types with modifiers, sound, and history.</div>
+      </a>
+      <a class="t10-card" href="https://mglearn.github.io/vcs/tools10/dicebreakers/index.html" target="_blank" rel="noopener">
+        <span class="t10-num">3</span>
+        <div class="t10-name">Dicebreaker Creator</div>
+        <div class="t10-desc">Roll-a-die prompt templates. Export and open a student roll view.</div>
+      </a>
+      <a class="t10-card" href="https://mglearn.github.io/vcs/tools10/drawsketch/index.html" target="_blank" rel="noopener">
+        <span class="t10-num">4</span>
+        <div class="t10-name">Draw and Sketch</div>
+        <div class="t10-desc">Etch-a-Sketch style drawing with blue and gold knobs for horizontal, vertical, and curved lines.</div>
+      </a>
+      <a class="t10-card" href="https://mglearn.github.io/vcs/tools10/fortune/index.html" target="_blank" rel="noopener">
+        <span class="t10-num">5</span>
+        <div class="t10-name">Fortune Wheel</div>
+        <div class="t10-desc">Wheel of Fortune style for spinning points, revealing letters, and solving vocabulary puzzles.</div>
+      </a>
+      <a class="t10-card" href="https://mglearn.github.io/vcs/tools10/memepuzzle/index.html" target="_blank" rel="noopener">
+        <span class="t10-num">6</span>
+        <div class="t10-name">Meme Puzzle Maker</div>
+        <div class="t10-desc">Quiz puzzle where correct answers remove tiles and reveal a hidden meme image.</div>
+      </a>
+      <a class="t10-card" href="https://mglearn.github.io/vcs/tools10/shapespinner/index.html" target="_blank" rel="noopener">
+        <span class="t10-num">7</span>
+        <div class="t10-name">Shape Spinner</div>
+        <div class="t10-desc">Spin shapes, pictures, prompts, and graph-race results for visual classroom activities.</div>
+      </a>
+      <a class="t10-card" href="https://mglearn.github.io/vcs/tools10/storywheel/index.html" target="_blank" rel="noopener">
+        <span class="t10-num">8</span>
+        <div class="t10-name">Story Wheel Maker</div>
+        <div class="t10-desc">Build a 3, 5, or 7-event wheel for sequencing, summarizing, and sharing story structure.</div>
+      </a>
+      <a class="t10-card" href="https://mglearn.github.io/vcs/tools10/wheelspinner/index.html" target="_blank" rel="noopener">
+        <span class="t10-num">9</span>
+        <div class="t10-name">Wheel Spinner</div>
+        <div class="t10-desc">Build a custom wheel, spin for a result, and reset when everyone is back in play.</div>
+      </a>
+      <a class="t10-card" href="https://mglearn.github.io/vcs/tools10/wordsearch/index.html" target="_blank" rel="noopener">
+        <span class="t10-num">10</span>
+        <div class="t10-name">Word Search Maker</div>
+        <div class="t10-desc">Printable word searches from TEKS-inspired vocabulary banks or paste your own classroom terms.</div>
+      </a>
+    </div>
+
+    <a class="tools10-cta" href="https://mglearn.github.io/vcs/tools10/" target="_blank" rel="noopener">
+      <div class="tools10-cta-text">
+        <strong>Open the full Tools 10 menu</strong>
+        Live launch page for all ten tools, plus future additions.
+      </div>
+      <div class="tools10-cta-url">mglearn.github.io/vcs/tools10/</div>
+    </a>
   </div>
 </section>
 
@@ -978,6 +1140,13 @@ Keep all drag, edit, and save features intact. Give me the full file.</div>
         <div>
           <div class="dl-title">Markdown Cleaner</div>
           <div class="dl-sub">go.mgpd.org/md · Bonus tool, works on phones</div>
+        </div>
+      </a>
+      <a class="dl-card" href="https://mglearn.github.io/vcs/tools10/">
+        <div class="dl-icon">10</div>
+        <div>
+          <div class="dl-title">TCEA Tools 10</div>
+          <div class="dl-sub">mglearn.github.io/vcs/tools10 · Ten classroom-ready activities</div>
         </div>
       </a>
       <a class="dl-card" href="https://blog.tcea.org/vibe-coded-solutions/">
