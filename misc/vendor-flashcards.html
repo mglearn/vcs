@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vendor Flash Cards</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+* , *::before, *::after { box-sizing: border-box; }
+html, body {
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+body {
+  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  padding: 12px;
+}
+.vbf-root {
+  --vbf-navy: #0A3476;
+  --vbf-navy-dark: #071f4a;
+  --vbf-navy-mid: #12428f;
+  --vbf-gold: #FCB040;
+  --vbf-gold-light: #fdd17a;
+  --vbf-gold-pale: #FEF0D0;
+  --vbf-pale-navy: #D0D8F0;
+  --vbf-white: #ffffff;
+  --vbf-off-white: #f7f8fc;
+  --vbf-text: #1a1a2e;
+  --vbf-text-muted: #5a6680;
+  --vbf-border: #e2e7f5;
+  --vbf-teal: #0e6b8a;
+  color: var(--vbf-text);
+  background: var(--vbf-off-white);
+  padding: 28px 20px 26px;
+  border-radius: 14px;
+  border: 1px solid var(--vbf-border);
+  line-height: 1.5;
+}
+.vbf-root p { margin: 0; }
+.vbf-header { text-align: center; max-width: 640px; margin: 0 auto 16px; }
+.vbf-eyebrow { display: inline-flex; align-items: center; gap: 8px; background: var(--vbf-gold-pale); border: 1px solid var(--vbf-gold-light); border-radius: 100px; padding: 5px 14px; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--vbf-navy); margin-bottom: 8px; }
+.vbf-eyebrow::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--vbf-gold); animation: vbf-pulse 2.4s ease infinite; }
+@keyframes vbf-pulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(0.7); } }
+.vbf-title { font-family: 'DM Serif Display', Georgia, serif; font-size: clamp(1.5rem, 3.2vw, 1.95rem); font-weight: 400; line-height: 1.15; margin: 0 0 4px; color: var(--vbf-navy); letter-spacing: -0.01em; }
+.vbf-title em { color: var(--vbf-gold); font-style: italic; }
+.vbf-desc { font-size: 0.85rem; color: var(--vbf-text-muted); margin: 0; font-weight: 400; }
+.vbf-filters { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin: 14px 0 18px; }
+.vbf-pill { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; padding: 6px 12px; background: var(--vbf-white); color: var(--vbf-navy); border: 1.5px solid var(--vbf-border); border-radius: 100px; cursor: pointer; transition: background 0.18s, color 0.18s, border-color 0.18s; font-family: inherit; }
+.vbf-pill:hover { background: var(--vbf-pale-navy); border-color: var(--vbf-navy-mid); }
+.vbf-pill.vbf-active { background: var(--vbf-navy); color: var(--vbf-white); border-color: var(--vbf-navy); }
+.vbf-deck { max-width: 560px; margin: 0 auto; }
+.vbf-viewport { position: relative; min-height: 380px; }
+.vbf-viewport::before, .vbf-viewport::after { content: ''; position: absolute; inset: 0; background: var(--vbf-white); border: 1.5px solid var(--vbf-border); border-radius: 10px; z-index: 0; }
+.vbf-viewport::before { transform: translate(6px, 6px) rotate(1.2deg); opacity: 0.45; }
+.vbf-viewport::after { transform: translate(3px, 3px) rotate(-0.6deg); opacity: 0.7; }
+.vbf-card { position: absolute; inset: 0; background: var(--vbf-white); border: 1.5px solid var(--vbf-border); border-left: 4px solid var(--vbf-gold); border-radius: 10px; padding: 20px 22px; flex-direction: column; gap: 10px; z-index: 2; box-shadow: 0 6px 20px rgba(10,52,118,0.08); display: none; }
+.vbf-card.vbf-active { display: flex; animation: vbf-cardIn 0.26s ease; }
+@keyframes vbf-cardIn { from { opacity: 0; transform: translateX(18px); } to { opacity: 1; transform: translateX(0); } }
+.vbf-card.vbf-hidden { display: none; }
+.vbf-card-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+.vbf-badge { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 4px 9px; border-radius: 4px; background: var(--vbf-pale-navy); color: var(--vbf-navy); border: 1px solid rgba(10,52,118,0.15); white-space: nowrap; }
+.vbf-badge.vbf-tx { background: var(--vbf-gold-pale); color: var(--vbf-navy-dark); border-color: var(--vbf-gold-light); }
+.vbf-badge.vbf-apple { background: #e8f4f8; color: var(--vbf-teal); border-color: #b8d9e3; }
+.vbf-badge.vbf-coop { background: var(--vbf-pale-navy); color: var(--vbf-navy); border-color: rgba(10,52,118,0.2); }
+.vbf-counter { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.08em; color: var(--vbf-text-muted); }
+.vbf-counter b { color: var(--vbf-navy); font-weight: 700; }
+.vbf-name { font-family: 'DM Serif Display', Georgia, serif; font-size: 1.45rem; font-weight: 400; color: var(--vbf-navy); margin: 0; line-height: 1.1; }
+.vbf-tag { font-size: 0.88rem; color: var(--vbf-text-muted); margin: 0; line-height: 1.4; }
+.vbf-facts { margin: 4px 0 0; padding: 10px 0 0; border-top: 1px solid var(--vbf-border); display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px 16px; flex: 1; }
+.vbf-facts > div { display: flex; flex-direction: column; gap: 2px; }
+.vbf-facts dt { font-size: 0.58rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--vbf-text-muted); margin: 0; }
+.vbf-facts dd { font-size: 0.8rem; color: var(--vbf-text); margin: 0; line-height: 1.35; }
+.vbf-card-foot { display: flex; justify-content: flex-end; margin-top: 6px; }
+.vbf-link { display: inline-flex; align-items: center; gap: 6px; font-size: 0.76rem; font-weight: 600; color: var(--vbf-navy); background: var(--vbf-gold); text-decoration: none; padding: 7px 14px; border-radius: 6px; transition: background 0.18s, transform 0.18s; }
+.vbf-link:hover { background: var(--vbf-gold-light); transform: translateX(2px); }
+.vbf-controls { display: flex; align-items: center; justify-content: center; gap: 12px; margin-top: 16px; }
+.vbf-nav { width: 38px; height: 38px; border-radius: 50%; background: var(--vbf-white); color: var(--vbf-navy); border: 1.5px solid var(--vbf-border); font-size: 1rem; font-weight: 500; line-height: 1; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background 0.18s, border-color 0.18s, color 0.18s; font-family: inherit; }
+.vbf-nav:hover { background: var(--vbf-gold); border-color: var(--vbf-gold); color: var(--vbf-navy); }
+.vbf-nav:disabled { opacity: 0.35; cursor: not-allowed; }
+.vbf-nav:disabled:hover { background: var(--vbf-white); border-color: var(--vbf-border); }
+.vbf-dots { display: flex; gap: 6px; align-items: center; }
+.vbf-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--vbf-border); border: none; padding: 0; cursor: pointer; transition: background 0.18s, transform 0.18s; }
+.vbf-dot:hover { background: var(--vbf-pale-navy); }
+.vbf-dot.vbf-active { background: var(--vbf-navy); transform: scale(1.3); }
+.vbf-foot { text-align: center; margin-top: 14px; font-size: 0.66rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--vbf-text-muted); }
+@media (max-width: 560px) {
+  .vbf-viewport { min-height: 480px; }
+  .vbf-facts { grid-template-columns: 1fr; gap: 6px; }
+  .vbf-name { font-size: 1.25rem; }
+  .vbf-card { padding: 18px 18px; gap: 8px; }
+}
+@media (max-width: 400px) {
+  .vbf-viewport::before, .vbf-viewport::after { display: none; }
+}
+</style>
+</head>
+<body>
+<div class="vbf-root">
+<div class="vbf-header">
+<div class="vbf-eyebrow">Vendor Flash Cards · 9 Options</div>
+<h3 class="vbf-title">Flip through the <em>deck</em></h3>
+<p class="vbf-desc">Use the arrows or dots below. Filter the deck by vendor type first if you want to narrow it.</p>
+</div>
+<div class="vbf-filters">
+<button class="vbf-pill vbf-active" data-filter="all" type="button">All 9</button>
+<button class="vbf-pill" data-filter="tx" type="button">Texas-Based</button>
+<button class="vbf-pill" data-filter="national" type="button">National K-12</button>
+<button class="vbf-pill" data-filter="coop" type="button">Cooperatives</button>
+<button class="vbf-pill" data-filter="apple" type="button">Apple-Only</button>
+</div>
+<div class="vbf-deck">
+<div class="vbf-viewport">
+<article class="vbf-card" data-type="tx">
+<div class="vbf-card-head"><span class="vbf-badge vbf-tx">Texas Regional</span><span class="vbf-counter"><b data-current>1</b> / <span data-total>9</span></span></div>
+<h4 class="vbf-name">STS Electronic Recycling</h4>
+<p class="vbf-tag">Free recycling, no palletizing. They do all the loading and send a certificate of destruction.</p>
+<dl class="vbf-facts">
+<div><dt>Location</dt><dd>Jacksonville HQ; 7 Texas locations</dd></div>
+<div><dt>Certs</dt><dd>R2v3, NAID, NIST 800-88, FERPA</dd></div>
+<div><dt>Payout</dt><dd>No payment; absolutely free</dd></div>
+<div><dt>Pickup</dt><dd>Full loading, no palletizing</dd></div>
+<div><dt>Best for</dt><dd>End-of-life gear, zero payout expected</dd></div>
+</dl>
+<div class="vbf-card-foot"><a class="vbf-link" href="https://www.stselectronicrecyclinginc.com" target="_blank" rel="noopener">Visit site →</a></div>
+</article>
+<article class="vbf-card" data-type="tx">
+<div class="vbf-card-head"><span class="vbf-badge vbf-tx">Texas Regional</span><span class="vbf-counter"><b data-current>2</b> / <span data-total>9</span></span></div>
+<h4 class="vbf-name">EverTrade Electronics</h4>
+<p class="vbf-tag">Sugar Land facility with free pickup across the Greater Houston area.</p>
+<dl class="vbf-facts">
+<div><dt>Location</dt><dd>Sugar Land, TX</dd></div>
+<div><dt>Certs</dt><dd>NIST 800-88, FERPA-aligned, zero-landfill</dd></div>
+<div><dt>Payout</dt><dd>Free recycling; pays for select enterprise gear</dd></div>
+<div><dt>Pickup</dt><dd>Free business pickup at 10+ items</dd></div>
+<div><dt>Best for</dt><dd>Houston, Katy, Fort Bend, and Sugar Land ISDs</dd></div>
+</dl>
+<div class="vbf-card-foot"><a class="vbf-link" href="https://evertradeelectronics.com" target="_blank" rel="noopener">Visit site →</a></div>
+</article>
+<article class="vbf-card" data-type="tx">
+<div class="vbf-card-head"><span class="vbf-badge vbf-tx">Texas Regional</span><span class="vbf-counter"><b data-current>3</b> / <span data-total>9</span></span></div>
+<h4 class="vbf-name">Bass Computer Recycling</h4>
+<p class="vbf-tag">Houston-based, R2v3 certified with the full ISO stack. The compliance pick for districts that answer to auditors.</p>
+<dl class="vbf-facts">
+<div><dt>Location</dt><dd>Houston, TX</dd></div>
+<div><dt>Certs</dt><dd>R2v3, ISO 9001, 14001, 45001</dd></div>
+<div><dt>Payout</dt><dd>Free on-site estimate; pays when resale value exists</dd></div>
+<div><dt>Pickup</dt><dd>Packaged and sealed on-site with chain of custody</dd></div>
+<div><dt>Best for</dt><dd>Mixed fleets needing strict compliance docs</dd></div>
+</dl>
+<div class="vbf-card-foot"><a class="vbf-link" href="https://basscomputerrecycling.com" target="_blank" rel="noopener">Visit site →</a></div>
+</article>
+<article class="vbf-card" data-type="national">
+<div class="vbf-card-head"><span class="vbf-badge">National K-12</span><span class="vbf-counter"><b data-current>4</b> / <span data-total>9</span></span></div>
+<h4 class="vbf-name">K-12 Tech Repairs</h4>
+<p class="vbf-tag">Offers 10 percent more when you take payout as credit toward parts, cases, or repairs.</p>
+<dl class="vbf-facts">
+<div><dt>Location</dt><dd>Indiana HQ; mail-in for Texas</dd></div>
+<div><dt>Certs</dt><dd>Hard drive erasure and shredding</dd></div>
+<div><dt>Payout</dt><dd>Cash, or credit with a 10 percent bonus</dd></div>
+<div><dt>Pickup</dt><dd>Free on-site packaging for qualifying quotes</dd></div>
+<div><dt>Best for</dt><dd>Districts buying parts, cases, or repair services</dd></div>
+</dl>
+<div class="vbf-card-foot"><a class="vbf-link" href="https://www.k12techrepairs.com/services/buyback/" target="_blank" rel="noopener">Visit site →</a></div>
+</article>
+<article class="vbf-card" data-type="national">
+<div class="vbf-card-head"><span class="vbf-badge">National K-12</span><span class="vbf-counter"><b data-current>5</b> / <span data-total>9</span></span></div>
+<h4 class="vbf-name">STS Education</h4>
+<p class="vbf-tag">Second-Life Hardware focus. They buy to recondition and resell to other districts, not strip for parts.</p>
+<dl class="vbf-facts">
+<div><dt>Location</dt><dd>Southern California HQ; national</dd></div>
+<div><dt>Certs</dt><dd>White-glove reconditioning and decontamination</dd></div>
+<div><dt>Payout</dt><dd>Varies; higher for reusable devices</dd></div>
+<div><dt>Pickup</dt><dd>Full-service logistics for partners</dd></div>
+<div><dt>Best for</dt><dd>Districts who want gear reused, not scrapped</dd></div>
+</dl>
+<div class="vbf-card-foot"><a class="vbf-link" href="https://stsed.com" target="_blank" rel="noopener">Visit site →</a></div>
+</article>
+<article class="vbf-card" data-type="national apple">
+<div class="vbf-card-head"><span class="vbf-badge vbf-apple">Apple Specialty</span><span class="vbf-counter"><b data-current>6</b> / <span data-total>9</span></span></div>
+<h4 class="vbf-name">Second Life Mac</h4>
+<p class="vbf-tag">Apple-only since 2012. Ex-Apple team and Blue Glove onsite pickup usually beats generalist quotes.</p>
+<dl class="vbf-facts">
+<div><dt>Location</dt><dd>Skokie, IL; 2,000+ schools served</dd></div>
+<div><dt>Certs</dt><dd>Full data wipe with factory reset</dd></div>
+<div><dt>Payout</dt><dd>Cash payout on Apple devices</dd></div>
+<div><dt>Pickup</dt><dd>Blue Glove onsite; ship-in available</dd></div>
+<div><dt>Best for</dt><dd>iPad carts, MacBook fleets, iMac labs</dd></div>
+</dl>
+<div class="vbf-card-foot"><a class="vbf-link" href="https://secondlifemac.com" target="_blank" rel="noopener">Visit site →</a></div>
+</article>
+<article class="vbf-card" data-type="national">
+<div class="vbf-card-head"><span class="vbf-badge">National K-12</span><span class="vbf-counter"><b data-current>7</b> / <span data-total>9</span></span></div>
+<h4 class="vbf-name">Tech to School</h4>
+<p class="vbf-tag">Covers Apple, Chrome, and Windows on one contract. Community Sales option lets parents buy retired devices.</p>
+<dl class="vbf-facts">
+<div><dt>Location</dt><dd>Nationwide K-12 partner, 20+ years</dd></div>
+<div><dt>Certs</dt><dd>Data erasure with chain-of-custody reports</dd></div>
+<div><dt>Payout</dt><dd>Check or trade-up credit, payment on pickup</dd></div>
+<div><dt>Pickup</dt><dd>Full logistics; 30-day audit turnaround</dd></div>
+<div><dt>Best for</dt><dd>Mixed-platform 1:1 districts</dd></div>
+</dl>
+<div class="vbf-card-foot"><a class="vbf-link" href="https://techtoschool.com" target="_blank" rel="noopener">Visit site →</a></div>
+</article>
+<article class="vbf-card" data-type="tx coop">
+<div class="vbf-card-head"><span class="vbf-badge vbf-coop">Texas Cooperative</span><span class="vbf-counter"><b data-current>8</b> / <span data-total>9</span></span></div>
+<h4 class="vbf-name">TIPS</h4>
+<p class="vbf-tag">Free-to-join national cooperative run out of Region 8 ESC in Pittsburg. Pre-vetted technology contracts.</p>
+<dl class="vbf-facts">
+<div><dt>Location</dt><dd>Region 8 ESC, Pittsburg, TX</dd></div>
+<div><dt>Certs</dt><dd>Competitively bid, audited contracts</dd></div>
+<div><dt>Payout</dt><dd>Depends on awarded vendor selected</dd></div>
+<div><dt>Pickup</dt><dd>Handled by selected vendor</dd></div>
+<div><dt>Best for</dt><dd>Districts needing procurement cover without a fresh RFP</dd></div>
+</dl>
+<div class="vbf-card-foot"><a class="vbf-link" href="https://www.tips-usa.com" target="_blank" rel="noopener">Visit site →</a></div>
+</article>
+<article class="vbf-card" data-type="tx coop">
+<div class="vbf-card-head"><span class="vbf-badge vbf-coop">Texas Cooperative</span><span class="vbf-counter"><b data-current>9</b> / <span data-total>9</span></span></div>
+<h4 class="vbf-name">Choice Partners</h4>
+<p class="vbf-tag">HCDE-governed cooperative with a 50-plus-year track record. EDGAR and 2 CFR 200 compliant out of the box.</p>
+<dl class="vbf-facts">
+<div><dt>Location</dt><dd>HCDE, Houston, TX</dd></div>
+<div><dt>Certs</dt><dd>EDGAR, 2 CFR 200, HCDE board-awarded</dd></div>
+<div><dt>Payout</dt><dd>Depends on awarded vendor selected</dd></div>
+<div><dt>Pickup</dt><dd>Handled by selected vendor</dd></div>
+<div><dt>Best for</dt><dd>Texas districts wanting all-in-one coop coverage</dd></div>
+</dl>
+<div class="vbf-card-foot"><a class="vbf-link" href="https://www.choicepartners.org" target="_blank" rel="noopener">Visit site →</a></div>
+</article>
+</div>
+<div class="vbf-controls">
+<button class="vbf-nav" data-nav="prev" aria-label="Previous vendor" type="button">◀</button>
+<div class="vbf-dots" role="tablist"></div>
+<button class="vbf-nav" data-nav="next" aria-label="Next vendor" type="button">▶</button>
+</div>
+</div>
+<div class="vbf-foot">URLs verified · Use ← → arrow keys to flip</div>
+</div>
+<script>
+(function(){
+  function initDeck(root) {
+    var allCards = Array.prototype.slice.call(root.querySelectorAll('.vbf-card'));
+    var prevBtn  = root.querySelector('[data-nav="prev"]');
+    var nextBtn  = root.querySelector('[data-nav="next"]');
+    var dotsWrap = root.querySelector('.vbf-dots');
+    var pills    = root.querySelectorAll('.vbf-pill');
+    var deck = allCards.slice();
+    var idx  = 0;
+    function renderDots() {
+      dotsWrap.innerHTML = '';
+      deck.forEach(function(c, i) {
+        var d = document.createElement('button');
+        d.type = 'button';
+        d.className = 'vbf-dot' + (i === idx ? ' vbf-active' : '');
+        d.setAttribute('aria-label', 'Go to card ' + (i + 1));
+        d.addEventListener('click', function() { idx = i; apply(); });
+        dotsWrap.appendChild(d);
+      });
+    }
+    function apply() {
+      allCards.forEach(function(c) {
+        c.classList.add('vbf-hidden');
+        c.classList.remove('vbf-active');
+      });
+      deck.forEach(function(c, i) {
+        c.classList.remove('vbf-hidden');
+        if (i === idx) c.classList.add('vbf-active');
+        var curEl = c.querySelector('[data-current]');
+        var totEl = c.querySelector('[data-total]');
+        if (curEl) curEl.textContent = (i + 1);
+        if (totEl) totEl.textContent = deck.length;
+      });
+      prevBtn.disabled = (idx === 0);
+      nextBtn.disabled = (idx === deck.length - 1);
+      dotsWrap.querySelectorAll('.vbf-dot').forEach(function(d, i) {
+        d.classList.toggle('vbf-active', i === idx);
+      });
+    }
+    function setDeck(filter) {
+      if (filter === 'all') {
+        deck = allCards.slice();
+      } else {
+        deck = allCards.filter(function(c) {
+          var types = (c.getAttribute('data-type') || '').split(/\s+/);
+          return types.indexOf(filter) !== -1;
+        });
+      }
+      idx = 0;
+      renderDots();
+      apply();
+    }
+    prevBtn.addEventListener('click', function() { if (idx > 0) { idx--; apply(); } });
+    nextBtn.addEventListener('click', function() { if (idx < deck.length - 1) { idx++; apply(); } });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'ArrowLeft'  && idx > 0) { idx--; apply(); }
+      if (e.key === 'ArrowRight' && idx < deck.length - 1) { idx++; apply(); }
+    });
+    pills.forEach(function(pill) {
+      pill.addEventListener('click', function() {
+        pills.forEach(function(p) { p.classList.remove('vbf-active'); });
+        pill.classList.add('vbf-active');
+        setDeck(pill.getAttribute('data-filter'));
+      });
+    });
+    renderDots();
+    apply();
+  }
+  function bootAll() {
+    var roots = document.querySelectorAll('.vbf-root');
+    roots.forEach(function(r) { initDeck(r); });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', bootAll);
+  } else {
+    bootAll();
+  }
+})();
+</script>
+</body>
+</html>
